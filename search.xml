@@ -1,6 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>zookeeper-命令行工具zkCli使用</title>
+    <url>/2019/12/30/zookeeper-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7zkCli%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h4 id="zkCli使用"><a href="#zkCli使用" class="headerlink" title="zkCli使用"></a>zkCli使用</h4><h5 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h5><blockquote>
+<p>必须确保服务器已安装zookeeper</p>
+<p>echo ruok|nc 127.0.0.1 2181     使用四字命令检测zookeeper是否运行</p>
+</blockquote>
+<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>ZooKeeper客户端有C语言和Java两个版本。</p>
+<p>在zookeeper安装目录的/bin文件夹下。</p>
+<p>使用如图所示命令表示，使用zkCli.sh连接到zookeeper服务端成功。</p>
+<p><img src="/images/zkCli.jpg" alt=""></p>
+<h5 id="四字命令"><a href="#四字命令" class="headerlink" title="四字命令"></a>四字命令</h5><table>
+<thead>
+<tr>
+<th><strong>ZooKeeper 四字命令</strong></th>
+<th><strong>功能描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>conf</td>
+<td>输出相关服务配置的详细信息。</td>
+</tr>
+<tr>
+<td>cons</td>
+<td>列出所有连接到服务器的客户端的完全的连接 / 会话的详细信息。包括“接受 / 发送”的包数量、会话 id 、操作延迟、最后的操作执行等等信息。</td>
+</tr>
+<tr>
+<td>dump</td>
+<td>列出未经处理的会话和临时节点。</td>
+</tr>
+<tr>
+<td>envi</td>
+<td>输出关于服务环境的详细信息（区别于 conf 命令）。</td>
+</tr>
+<tr>
+<td>reqs</td>
+<td>列出未经处理的请求</td>
+</tr>
+<tr>
+<td>ruok</td>
+<td>测试服务是否处于正确状态。如果确实如此，那么服务返回“imok ”，否则不做任何相应。</td>
+</tr>
+<tr>
+<td>stat</td>
+<td>输出关于性能和连接的客户端的列表。</td>
+</tr>
+<tr>
+<td>wchs</td>
+<td>列出服务器 watch 的详细信息。</td>
+</tr>
+<tr>
+<td>wchc</td>
+<td>通过 session 列出服务器 watch 的详细信息，它的输出是一个与watch 相关的会话的列表。</td>
+</tr>
+<tr>
+<td>wchp</td>
+<td>通过路径列出服务器 watch 的详细信息。它输出一个与 session相关的路径。</td>
+</tr>
+</tbody></table>
+<p>例如使用案例：</p>
+<p><img src="/images/zkCli1.jpg" alt=""></p>
+<h5 id="常见使用案例"><a href="#常见使用案例" class="headerlink" title="常见使用案例"></a>常见使用案例</h5><ol>
+<li><strong>使用 ls 命令来查看当前 ZooKeeper 中所包含的内容</strong></li>
+</ol>
+<p><img src="/images/zkCli2.jpg" alt=""></p>
+<ol start="2">
+<li><p>*<em>创建一个新的 znode ，使用 create /mynode  ‘aaa’ 绑定字符串 aaa *</em></p>
+<p><img src="/images/zkCli3.jpg" alt=""></p>
+</li>
+<li><p>*<em>获取节点下面绑定的信息 get /mynode *</em> </p>
+<p><img src="/images/zkCli4.jpg" alt=""></p>
+</li>
+<li><p><strong>通过 set 命令来对 zk 所关联的字符串进行设置： set /mynode ‘ddd’</strong></p>
+</li>
+<li><p><strong>创建的 znode 删除: delete /mynode</strong></p>
+</li>
+</ol>
+<h5 id="节点各个参数详解："><a href="#节点各个参数详解：" class="headerlink" title="节点各个参数详解："></a>节点各个参数详解：</h5><p>节点的路径皆为绝对路径</p>
+<p><img src="/images/zkCli4.jpg" alt=""></p>
+<blockquote>
+<p>cZxid节点创建时的zxid</p>
+<p>ctime节点创建时间</p>
+<p>mZxid节点最近一次更新时的zxid</p>
+<p>mtime节点最近一次更新的时间</p>
+<p>cversion子节点数据更新次数</p>
+<p>dataVersion本节点数据更新次数</p>
+<p>aclVersion节点ACL(授权信息)的更新次数</p>
+<p>ephemeralOwner如果该节点为临时节点,ephemeralOwner值表示与该节点绑定的session id. 如果该节点不是临时节点,ephemeralOwner值为0</p>
+<p>dataLength节点数据长度，本例中为hello world的长度</p>
+<p>numChildren子节点个数</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>zookeeper</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>zookeeper概述</title>
     <url>/2019/12/30/zookeeper%E6%A6%82%E8%BF%B0/</url>
     <content><![CDATA[<h4 id="zookeeper概述"><a href="#zookeeper概述" class="headerlink" title="zookeeper概述"></a>zookeeper概述</h4><p>zookeeper是一种分布式协调服务，用于大型主机。在分布式环境中，协调和管理服务是一个复杂的过程，但是zookeeper以其简单的机构和 API 解决了该问题。zookeeper最先开始是在 Yahoo 上使用的，用简单而稳健的访问内部的系统。</p>
