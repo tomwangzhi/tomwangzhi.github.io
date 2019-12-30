@@ -60,17 +60,17 @@
 </tr>
 </tbody></table>
 <p>例如使用案例：</p>
-<p><img src="/images/zkCli1.jpg" alt=""></p>
+<p><img src="/images/zkcli1.jpg" alt=""></p>
 <h5 id="常见使用案例"><a href="#常见使用案例" class="headerlink" title="常见使用案例"></a>常见使用案例</h5><ol>
 <li><strong>使用 ls 命令来查看当前 ZooKeeper 中所包含的内容</strong></li>
 </ol>
-<p><img src="/images/zkCli2.jpg" alt=""></p>
+<p><img src="/images/zkcli2.jpg" alt=""></p>
 <ol start="2">
 <li><p>*<em>创建一个新的 znode ，使用 create /mynode  ‘aaa’ 绑定字符串 aaa *</em></p>
-<p><img src="/images/zkCli3.jpg" alt=""></p>
+<p><img src="/images/zkcli3.jpg" alt=""></p>
 </li>
 <li><p>*<em>获取节点下面绑定的信息 get /mynode *</em> </p>
-<p><img src="/images/zkCli4.jpg" alt=""></p>
+<p><img src="/images/zkcli4.jpg" alt=""></p>
 </li>
 <li><p><strong>通过 set 命令来对 zk 所关联的字符串进行设置： set /mynode ‘ddd’</strong></p>
 </li>
@@ -78,7 +78,7 @@
 </li>
 </ol>
 <h5 id="节点各个参数详解："><a href="#节点各个参数详解：" class="headerlink" title="节点各个参数详解："></a>节点各个参数详解：</h5><p>节点的路径皆为绝对路径</p>
-<p><img src="/images/zkCli4.jpg" alt=""></p>
+<p><img src="/images/zkcli4.jpg" alt=""></p>
 <blockquote>
 <p>cZxid节点创建时的zxid</p>
 <p>ctime节点创建时间</p>
