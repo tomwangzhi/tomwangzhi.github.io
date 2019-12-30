@@ -8,7 +8,7 @@
 <p><strong>定义</strong>：分布式应用可以在给定时间同时在网络的多个系统上运行，通过协调他们完成共同的任务。复杂的任务在分布式环境下可以用更少的时间完成，不像传统单体应用耗时过多。</p>
 <p><strong>组成</strong>：分布式应用有两部分， <strong>Server（服务器）</strong> 和 <strong>Client（客户端）</strong> 应用程序。服务器应用程序实际上是分布式的，并具有通用接口，以便客户端可以连接到集群中的任何服务器并获得相同的结果。 客户端应用程序是与分布式应用进行交互的工具。</p>
 </blockquote>
-<p><img src="../images/zookeeper.jpg" alt=""></p>
+<p><img src="/images/zookeeper.jpg" alt=""></p>
 <blockquote>
 <p><strong>优点：</strong></p>
 <p>可靠性：单个或几个系统故障不会使整个系统奔溃</p>
