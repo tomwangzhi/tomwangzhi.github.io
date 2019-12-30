@@ -3,7 +3,47 @@
   <entry>
     <title>zookeeper概述</title>
     <url>/2019/12/30/zookeeper%E6%A6%82%E8%BF%B0/</url>
-    <content><![CDATA[]]></content>
+    <content><![CDATA[<h4 id="zookeeper概述"><a href="#zookeeper概述" class="headerlink" title="zookeeper概述"></a>zookeeper概述</h4><p>zookeeper是一种分布式协调服务，用于大型主机。在分布式环境中，协调和管理服务是一个复杂的过程，但是zookeeper以其简单的机构和 API 解决了该问题。zookeeper最先开始是在 Yahoo 上使用的，用简单而稳健的访问内部的系统。</p>
+<h5 id="分布式应用"><a href="#分布式应用" class="headerlink" title="分布式应用"></a>分布式应用</h5><blockquote>
+<p><strong>定义</strong>：分布式应用可以在给定时间同时在网络的多个系统上运行，通过协调他们完成共同的任务。复杂的任务在分布式环境下可以用更少的时间完成，不像传统单体应用耗时过多。</p>
+<p><strong>组成</strong>：分布式应用有两部分， <strong>Server（服务器）</strong> 和 <strong>Client（客户端）</strong> 应用程序。服务器应用程序实际上是分布式的，并具有通用接口，以便客户端可以连接到集群中的任何服务器并获得相同的结果。 客户端应用程序是与分布式应用进行交互的工具。</p>
+</blockquote>
+<p><img src="../images/zookeeper.jpg" alt=""></p>
+<blockquote>
+<p><strong>优点：</strong></p>
+<p>可靠性：单个或几个系统故障不会使整个系统奔溃</p>
+<p>可扩展性：可以在需要时增加系统的性能，在应用程序进行微小的配置的更改，而不会有停机时间</p>
+<p>透明性：隐藏系统的复杂性。</p>
+<p><strong>缺点：</strong></p>
+<p>竞争条件：两个或多个机器尝试执行特定任务，实际上只需在任意给定时间由单个机器完成</p>
+<p>死锁：两个或多个操作等待彼此无限期完成。</p>
+<p>不一致: 数据的部分失败</p>
+</blockquote>
+<h4 id="什么是-Apache-zookeeper"><a href="#什么是-Apache-zookeeper" class="headerlink" title="什么是 Apache  zookeeper?"></a>什么是 Apache  zookeeper?</h4><p>Apache ZooKeeper是由集群（节点组）使用的一种服务，用于在自身之间协调，并通过稳健的同步技术维护共享数据。ZooKeeper本身是一个分布式应用程序，为写入分布式应用程序提供服务。</p>
+<blockquote>
+<p>提供的服务：</p>
+<p><strong>命名服务</strong>: 按名称标识集群中的节点</p>
+<p>配置管理：加入节点的最近和最新的配置信息</p>
+<p>集群管理：实时的在集群和节点状态中加入/离开节点</p>
+<p>选举算法：选举一个节点作为协调目的的leader</p>
+<p><strong>高度可靠的数据注册表</strong>：即使在一个或几个节点关闭时也可以获得数据</p>
+<p><strong>锁定和同步服务</strong> - 在修改数据的同时锁定数据。</p>
+</blockquote>
+<blockquote>
+<p>优点：</p>
+<ul>
+<li><strong>简单的分布式协调过程</strong></li>
+<li><strong>同步</strong> - 服务器进程之间的相互排斥和协作。此过程有助于Apache HBase进行配置管理。</li>
+<li><strong>有序的消息</strong></li>
+<li><strong>序列化</strong> - 根据特定规则对数据进行编码。确保应用程序运行一致。这种方法可以在MapReduce中用来协调队列以执行运行的线程。</li>
+<li><strong>可靠性</strong></li>
+<li><strong>原子性</strong> - 数据转移完全成功或完全失败，但没有事务是部分的。</li>
+</ul>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>zookeeper</tag>
+      </tags>
   </entry>
   <entry>
     <title>小工具-StopWatch</title>
