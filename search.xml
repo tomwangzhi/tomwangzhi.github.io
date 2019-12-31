@@ -10,7 +10,7 @@
 <h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>ZooKeeper客户端有C语言和Java两个版本。</p>
 <p>在zookeeper安装目录的/bin文件夹下。</p>
 <p>使用如图所示命令表示，使用zkCli.sh连接到zookeeper服务端成功。</p>
-<p><img src="/images/zkCli.jpg" alt=""></p>
+<p><img src="/images/zkcli.jpg" alt=""></p>
 <h5 id="四字命令"><a href="#四字命令" class="headerlink" title="四字命令"></a>四字命令</h5><table>
 <thead>
 <tr>
