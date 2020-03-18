@@ -1,6 +1,213 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>kafka高性能原理和性能优化</title>
+    <url>/2020/03/18/kafka%E9%AB%98%E6%80%A7%E8%83%BD%E5%8E%9F%E7%90%86%E5%92%8C%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/</url>
+    <content><![CDATA[<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ol>
+<li>kafka架构</li>
+<li>高性能解读</li>
+<li>配置参数调优</li>
+<li>kafka对比其他消息系统</li>
+</ol>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">kafka架构</font></center>
+
+<p><strong>Kafka体系结构</strong></p>
+<p><img src="/images/kafka.jpg" alt=""></p>
+<p><strong>kafka topic多副本架构</strong></p>
+<blockquote>
+<p>每个 borker 有 leader 和 follower 而一个leader 下面的 follwer 可以分布在不同的 broker 中。就可以让 topic 分布在多台主机中</p>
+</blockquote>
+<p><img src="/images/kafka2.jpg" alt=""></p>
+<p><strong>Kafka架构特点</strong></p>
+<blockquote>
+<p>分布式： Broker 节点可以水平扩展</p>
+<p>扩展性： Topic 下分区 Partion 的水平扩展</p>
+<p>高可用： Toipc下每一个分区(Partition)都是有备份机制，leader负责处理读写请求，follow负责同步备份，故障时支持主从切换。</p>
+</blockquote>
+<p><strong>问题？</strong></p>
+<blockquote>
+<ol>
+<li><p>kafka 的消息是有序的吗？</p>
+<p>partition内部的数据有效性（追加写、offset读），提高Topic的并发吞吐能力，可以提高Topic的partition数。但是多个 partition 不能保证Topic级别的数据有序性</p>
+</li>
+<li><p>kafka生产者到服务端发送消息是push还是pull？</p>
+<p>push</p>
+</li>
+<li><p>kafka消费者到服务端获取消息是push还是pull？</p>
+<p>pull</p>
+</li>
+</ol>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">kafka高性能解读</font></center>
+
+<p><strong>顺序写盘</strong></p>
+<p>顺序写代替随机写。Kafka采用了文件追加的方式来写入消息，只能在日志文件的尾部追加新的消<br>息，且不允许修改已写入的消息，顺序写盘以提高性能。</p>
+<p><img src="/images/kafka3.jpg" alt=""></p>
+<p>联系：MySql的RedoLog，MongoDB的Journal日志</p>
+<p>顺序写盘性能对比：</p>
+<p><img src="/images/kafka4.jpg" alt=""></p>
+<p><strong>零拷贝</strong></p>
+<p>零拷贝技术可以减少数据拷贝和共享总线操作的次数，消除传输数据在存储器之间不必要的中间拷贝次数，从而有效地提高数据传输效率</p>
+<p><img src="/images/kafka5.jpg" alt=""></p>
+<p><img src="/images/kafka6.jpg" alt=""></p>
+<p><strong>页缓存</strong></p>
+<p>利用操作系统的缓存管理</p>
+<p><img src="/images/kafka7.jpg" alt=""></p>
+<p><strong>索引</strong></p>
+<p>通过索引快速定位日志.</p>
+<p><img src="/images/kafka8.jpg" alt=""></p>
+<p><strong>一致性</strong></p>
+<p>通过ISR在安全和性能之间达到平衡。</p>
+<p>AR= ISR+OSR</p>
+<p>AR：所有副本(Assigned Repllicas)</p>
+<p>ISR：同步副本(In-Sync Replicas)</p>
+<p>OSR：滞后副本(Out-Sync Relipcas)</p>
+<p>简言之，Kakfa通过动态调整ISR集合的副本来实现性能与数据安全之间的平衡，在网络拥塞和部分副本失效时避免对写入性能产生影响。</p>
+<p><strong>分区</strong></p>
+<p>通过分区扩展Topic的生产和消费的吞吐量。</p>
+<p>思考：分区数量可以无限制增加吗？如何选择合适的分区数量？</p>
+<p><img src="/images/kafka9.jpg" alt=""></p>
+<p><img src="/images/kafka10.jpg" alt=""></p>
+<p><strong>日志格式编码与压缩</strong></p>
+<p>节约存储和网络带宽。支持多种消息压缩方式（gzip、snappy、lz4）。可有效减少网络传输量、降低网络 I/O，从而提高整体的性能。</p>
+<p>如果对时延有一定的要求，则不推荐对消息进行压缩。</p>
+<p><strong>批处理</strong></p>
+<p>批量发送消息，可减少通信次数提高网络通信效率。</p>
+<p>思考：如何平衡网络利用率和时延？(batch.size、linger.ms、fetch.wait.max.ms)</p>
+<p><strong>客户端</strong></p>
+<p>双线程处理</p>
+<p><img src="/images/kafka11.jpg" alt=""></p>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">配置参数调优</font></center>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">acks：数据安全，<span class="number">0</span>/<span class="number">1</span>/all</span><br><span class="line">max.request.size：生产者一次发送的数据量最大大小,过大的消息服务端可能拒收。</span><br><span class="line">retries和retries.backoff.ms：重试次数和重试间隔</span><br><span class="line">linger.ms：批量发送时，最大的等待时间</span><br><span class="line">batch.size：批量发送消息的的等待大小,默认<span class="number">16384</span>为<span class="number">16</span>k，配置<span class="number">0</span>则禁止批量发送</span><br><span class="line">buffer.memory：发送线程缓存消息的内存大小，如果满了，发送线程会阻塞</span><br><span class="line">max.block.ms：生产者客户端发送阻塞时长，当buffer.memory满了，发送线程会阻塞，这是最大的阻塞时长，默认<span class="number">60</span>S</span><br><span class="line">compression.type：压缩类型，none(默认)/snappy/gzip/lz4</span><br><span class="line">max.poll.interval.ms：默认<span class="number">30000</span>ms，超过该时长没有poll，消费者组认为该消费者异常auto.offset.reset：默认latest(earliest)</span><br><span class="line">enable.auto.commit和auto.commit.interval.ms：默认<span class="keyword">true</span>，自动提交和提交间隔</span><br><span class="line">max.poll.records：消费者一次拉取最大消息条数</span><br><span class="line">fetch.wait.max.ms：如果没有足够的数据server阻塞等待足够的数据的最大阻塞时间，默认<span class="number">100</span>ms</span><br><span class="line">fetch.max.bytes：消费者一次请求时最大的消息字节数，默认<span class="number">50</span>MB</span><br><span class="line">max.partition.fetch.bytes：消费者一次请求时，每个分区返回的最大消息字节数</span><br><span class="line">log.dirs：日志保存目录，配置多个时kafka会均匀存储有助于提高写入性能，尤其是多个存储盘时</span><br><span class="line">log.retention.&#123;hours|minutes|ms&#125;：时间维度，保存一定的时间</span><br><span class="line">log.retention.bytes：空间维度，到达阈值时删除日志</span><br><span class="line">message.max.bytes：服务端能接收的最大消息大小，默认是<span class="number">977</span>KB，视情况调整。</span><br><span class="line">offsets.retention.minutes：服务端偏移量保存时间，默认<span class="number">24</span>小时，建议调整为和日志保存时间一致</span><br><span class="line"></span><br><span class="line">num.network.threads：broker处理消息的最大线程数（默认为<span class="number">3</span>），建议cpu核数+<span class="number">1</span>  </span><br><span class="line">num.io.threads： broker处理磁盘IO的线程数 （默认为<span class="number">8</span>），建议cpu核数*<span class="number">2</span></span><br></pre></td></tr></table></figure>
+
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">其他消息系统</font></center>
+
+<p><strong>RabbitMQ:</strong><br>RabbitMQ是基于AMQP协议和Erlang语言开发的开源消息队列。AMQP的主要特征是面向消息、队列、路由（包括点对点和发布/订阅）、可靠性、安全，主要应用于对数据一致性、稳定性和可靠性要求很高的场景，对性能和吞吐量的要求还在其次。</p>
+<p><strong>RocketMQ:</strong><br>阿里开源的纯Java开发消息中间件，吞吐量高、高可用性、适合大规模分布式系统应用。其思路起源于Kafka，但并不是Kafka的一个Copy，它对消息的可靠传输及事务性做了优化，在阿里集团被广泛应用于交易、充值、流计算、消息推送、日志流式处理、binglog分发等场景。</p>
+<p><strong>ActiveMQ:</strong><br>Apache提供的基于Java实现的开源消息系统，能很好地支持J2EE提出的JMS（Java<br>Message Service,即Java消息服务）规范。JMS是一组Java应用程序接口，类似于JDBC(Java数据库的统一访问接口),<br>是一种与厂商无关的API，使得Java程序能够与不同厂商的消息组件很好地进行通信，目前使用以及市场份额逐渐减少。</p>
+<table>
+<thead>
+<tr>
+<th><strong>对比维度</strong></th>
+<th><strong>细分维度</strong></th>
+<th><strong>ActiveMQ</strong></th>
+<th><strong>RocketMQ</strong></th>
+<th><strong>RabbitMQ</strong></th>
+<th><strong>Kafka</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位</td>
+<td>设计定位</td>
+<td>可靠消息传输</td>
+<td>可靠消息传输</td>
+<td>可靠消息传输</td>
+<td>可靠消息传输</td>
+</tr>
+<tr>
+<td>基础对比</td>
+<td>成熟度/社区</td>
+<td>成熟/高</td>
+<td>成熟/中</td>
+<td>成熟/高</td>
+<td>成熟/高</td>
+</tr>
+<tr>
+<td>开发语言</td>
+<td>Java</td>
+<td>Java</td>
+<td>ErLang</td>
+<td>Scala</td>
+<td></td>
+</tr>
+<tr>
+<td>持久化</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+</tr>
+<tr>
+<td>客户端</td>
+<td>丰富</td>
+<td>Java</td>
+<td>丰富</td>
+<td>丰富</td>
+<td></td>
+</tr>
+<tr>
+<td>性能可靠性</td>
+<td>可用性</td>
+<td>高</td>
+<td>非常高</td>
+<td>高</td>
+<td>非常高</td>
+</tr>
+<tr>
+<td>写入性能</td>
+<td>好</td>
+<td>很好</td>
+<td>好</td>
+<td>非常好</td>
+<td></td>
+</tr>
+<tr>
+<td>集群管理</td>
+<td>独立</td>
+<td>nameserver</td>
+<td>独立</td>
+<td>zookeeper</td>
+<td></td>
+</tr>
+<tr>
+<td>功能对比</td>
+<td>批量发送</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td></td>
+<td>消费方式</td>
+<td>pull</td>
+<td>pull</td>
+<td>push</td>
+<td>pull</td>
+</tr>
+<tr>
+<td></td>
+<td>消息清理</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td></td>
+<td>重新消费</td>
+<td>支持</td>
+<td>支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+]]></content>
+      <tags>
+        <tag>kafka</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>三种代理方式</title>
     <url>/2020/03/17/%E4%B8%89%E7%A7%8D%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F/</url>
     <content><![CDATA[<center><font color = "#36648B">✎</font><br/><font color = "#36648B">什么是代理？</font></center>
