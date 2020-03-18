@@ -1,6 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>三种代理方式</title>
+    <url>/2020/03/17/%E4%B8%89%E7%A7%8D%E4%BB%A3%E7%90%86%E6%96%B9%E5%BC%8F/</url>
+    <content><![CDATA[<center><font color = "#36648B">✎</font><br/><font color = "#36648B">什么是代理？</font></center>
+
+
+
+<blockquote>
+<p>代理是一种设计模式，提供了另外一种模式对目标对象的访问。可以在不改变目标对象状态的情况下对目标对象的功能进行增强。</p>
+<p>核心组成要素：代理对象和目标对象。代理对象对目标对象扩展，并且会调用目标对象。</p>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">背景</font></center>
+
+<blockquote>
+<p>为某个对象提供一个代理，以控制对这个对象的访问。<strong><em>代理类负责请求的预处理、过滤、将请求分派给委托类处理、以及委托类执行完请求后的后续处理。</em></strong></p>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">分类</font></center>
+
+<blockquote>
+<p>按生成的时间：</p>
+<ol>
+<li>静态代理：由程序手动编写，在运行之前就已经生成</li>
+<li>动态代理：在程序动态运行时利用反射生成。</li>
+</ol>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">静态代理使用</font></center>
+
+
+
+<blockquote>
+<p>组成：目标对象、代理对象、接口。</p>
+<p>使用步骤：</p>
+<ol>
+<li>定义一个接口</li>
+<li>编写目标对象实现接口</li>
+<li>编写代理对象实现接口。定义一个目标对象的成员变量通过构造传入目标对象</li>
+<li>在代理实现的方法中调用目标对象的方法</li>
+</ol>
+</blockquote>
+<center><font color = "#36648B">✎✎</font><br/><font color = "#36648B">代码</font></center>
+
+<p><strong>接口类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ICar</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>目标类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SmallCar</span> <span class="keyword">implements</span> <span class="title">ICar</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"small call drive ..."</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>代理类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyCar</span> <span class="keyword">implements</span> <span class="title">ICar</span></span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> ICar iCar;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyCar</span><span class="params">(ICar iCar)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.iCar = iCar;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">drive</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"proxy start ready,execute target object method"</span>);</span><br><span class="line">        iCar.drive();</span><br><span class="line">        System.out.println(<span class="string">"proxy execute target object method end"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>客户端</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建目标实现类</span></span><br><span class="line">        ICar smallCar = <span class="keyword">new</span> SmallCar();</span><br><span class="line">        <span class="comment">// 2. 创建代理类，传入目标类</span></span><br><span class="line">        ProxyCar proxyCar = <span class="keyword">new</span> ProxyCar(smallCar);</span><br><span class="line">        <span class="comment">// 3. 执行代理方法</span></span><br><span class="line">        proxyCar.drive();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>输出</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">proxy start ready,execute target object method</span><br><span class="line">small call drive ...</span><br><span class="line">proxy execute target object method end</span><br></pre></td></tr></table></figure>
+
+<center><font color = "#36648B">✎✎</font><br/><font color = "#36648B">原理</font></center>
+
+<p>​           在代理类中通过构造函数或者是 set 方法传入接口达到解耦的目的，可以代理多个实现目标类。在代理类的实现方法中，调用目标类的方法。可以灵活的控制在执行目标方法之前和之后增加业务逻辑</p>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">动态代理</font></center>
+
+<blockquote>
+<p>共两种： 1. jdk 动态代理    2. cglib动态代理</p>
+<blockquote>
+<p> jdk 动态代理</p>
+</blockquote>
+<p>调用 jdk 的自带的动态代理工具类创建代理类。</p>
+<p>位于包：java.lang.reflect.Proxy  下的 newProxyInstance方法</p>
+<p>static Object newProxyInstance(ClassLoader loader, Class&lt;?&gt;[] interfaces,InvocationHandler h )</p>
+<p>三个参数：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">ClassLoader loader,:指定当前目标对象使用类加载器,获取加载器的方法是固定的</span><br><span class="line">Class&lt;?&gt;[] interfaces,:目标对象实现的接口的类型,使用泛型方式确认类型</span><br><span class="line">InvocationHandler h:事件处理,执行目标对象的方法时,会触发事件处理器的方法,会把当前执行目标对象的方法作为参数传入</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p> cglib代理（继承的方式实现）</p>
+<p>如果想代理没有实现接口的类,就可以使用Cglib实现。在内存中动态构建子类</p>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">jdk动态代理代码</font></center>
+
+<blockquote>
+<p>目标对象和接口参加上面的 ICar  SmallCar</p>
+</blockquote>
+<p><strong>代理工厂类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ProxyFactory</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ProxyFactory</span><span class="params">(Object object)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = object;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> Proxy.newProxyInstance(target.getClass().getClassLoader(), target.getClass().getInterfaces(), <span class="keyword">new</span> InvocationHandler() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object proxy, Method method, Object[] args)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"开启事务"</span>);</span><br><span class="line">                method.invoke(proxy, args);</span><br><span class="line">                System.out.println(<span class="string">"结束事务"</span>);</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>调用客户端类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建目标实现类</span></span><br><span class="line">        ICar smallCar = <span class="keyword">new</span> SmallCar();</span><br><span class="line">        <span class="comment">// 2. 创建代理类，传入目标类</span></span><br><span class="line">        ICar proxy = (ICar)<span class="keyword">new</span> ProxyFactory(smallCar).getProxy();</span><br><span class="line">        <span class="comment">// 3. 执行代理方法</span></span><br><span class="line">        proxy.drive();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">cglib动态代理代码</font></center>
+
+<p><strong>代理工厂类</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CglibProxyFactory</span>  </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Object target;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CglibProxyFactory</span><span class="params">(Object target)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.target = target;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">CglibProxyFactory</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Object <span class="title">getProxy</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">//1.工具类</span></span><br><span class="line">        Enhancer en = <span class="keyword">new</span> Enhancer();</span><br><span class="line">        <span class="comment">//2.设置父类</span></span><br><span class="line">        en.setSuperclass(target.getClass());</span><br><span class="line">        <span class="comment">//3.设置回调函数</span></span><br><span class="line">        en.setCallback(<span class="keyword">new</span> MethodInterceptor() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> Object <span class="title">intercept</span><span class="params">(Object o, Method method, Object[] objects, MethodProxy methodProxy)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">                System.out.println(<span class="string">"开启事务"</span>);</span><br><span class="line">                <span class="comment">//执行目标对象的方法</span></span><br><span class="line">            Object returnValuemethod=method.invoke(target, objects);</span><br><span class="line">                System.out.println(<span class="string">"结束事务"</span>);</span><br><span class="line">                <span class="keyword">return</span> returnValuemethod;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="comment">//4.创建子类(代理对象)</span></span><br><span class="line">        <span class="keyword">return</span> en.create();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>调用客户端</strong></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InvokeClient</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 1. 创建目标实现类</span></span><br><span class="line">        ICar smallCar = <span class="keyword">new</span> SmallCar();</span><br><span class="line">        <span class="comment">// 2. 创建代理类，传入目标类</span></span><br><span class="line">        ICar proxy = (ICar)<span class="keyword">new</span> CglibProxyFactory(smallCar).getProxy();</span><br><span class="line">        <span class="comment">// 3. 执行代理方法</span></span><br><span class="line">        proxy.drive();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">spring动态代理代码</font></center>
+
+<p> spring中的核心 aop 思想就用到了动态代理，它的使用思想是：</p>
+<blockquote>
+<p>如果加入容器的目标对象有实现接口,用JDK代理</p>
+<p>如果目标对象没有实现接口,用Cglib代理 </p>
+<p>如果目标对象实现了接口，且强制使用cglib代理，则会使用cglib代理。</p>
+</blockquote>
+<center><font color = "#36648B">✎</font><br/><font color = "#36648B">三种总结</font></center>
+
+<p>对于静态代理的使用场景选择，动态代理用的比较多，灵活性比较高，可以在程序运行的时候生成。并且动态代理可以支持不用必须实现接口的方式提供了两种支持。jdk动态代理的目标对象必须实现接口。但是cglib则并没有要求目标对象必须实现某一个接口。我们可以根据实际情况选择 cglib和jdk 自带的两种代理方式。</p>
+]]></content>
+      <tags>
+        <tag>代理</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Thread</title>
+    <url>/2020/03/14/Thread/</url>
+    <content><![CDATA[<h3 id="1-线程状态转换图"><a href="#1-线程状态转换图" class="headerlink" title="1. 线程状态转换图"></a>1. 线程状态转换图</h3><p><img src="..%5Cimages%5Cthread.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>apache camel</title>
+    <url>/2020/01/06/apache-camel/</url>
+    <content><![CDATA[<h4 id="开始apache-camel"><a href="#开始apache-camel" class="headerlink" title="开始apache camel"></a>开始apache camel</h4><ol>
+<li><p>企业整合模式（EIP）书籍推荐</p>
+<blockquote>
+<p>&lt; <a href="http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612" target="_blank" rel="noopener"><em>Design Patterns: Elements of Reusable Object-oriented Softwar</em></a>&gt;</p>
+<p>&lt; <a href="http://www.amazon.com/Enterprise-Integration-Patterns-Designing-Deploying/dp/0321200683" target="_blank" rel="noopener"><em>Enterprise Integration Patterns: Designing, Building, and Deploying Messaging Solutions</em></a>&gt;</p>
+</blockquote>
+</li>
+<li><p>apache其它学习方式</p>
+<blockquote>
+<p>Camel (<a href="http://camel.apache.org/" target="_blank" rel="noopener">http://camel.apache.org</a>) 是一个开源的、基于java的项目，帮助用户实现了多种方式的企业应用的集成。Camel很好了的实现了许多EIP书籍提到的一些设计模式，它是一种不错的方式，让用户能更好的将Camel作为EIP的参考。</p>
+</blockquote>
+<blockquote>
+<p>在线参考文档：<a href="https://camel.apache.org/manual/latest/book-getting-started.html" target="_blank" rel="noopener">https://camel.apache.org/manual/latest/book-getting-started.html</a></p>
+<p>组件集成：<a href="https://camel.apache.org/components/3.0.x/index.html" target="_blank" rel="noopener">https://camel.apache.org/components/3.0.x/index.html</a></p>
+</blockquote>
+<h4 id="camel一些概念和术语"><a href="#camel一些概念和术语" class="headerlink" title="camel一些概念和术语"></a>camel一些概念和术语</h4><p>下面主要介绍和 camel 相关的一些概念和术语，是学习 camel最基本的一步。</p>
+<h5 id="ENDPOINT"><a href="#ENDPOINT" class="headerlink" title="ENDPOINT"></a>ENDPOINT</h5><blockquote>
+<p>常常被作为</p>
+</blockquote>
+</li>
+</ol>
+]]></content>
+      <tags>
+        <tag>camel</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>面向对象与面向过程</title>
+    <url>/2020/01/03/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ol>
+<li>什么是面向对象</li>
+<li>什么是面向过程</li>
+<li>面向对象与面向过程区别</li>
+<li>面向对象的三大基本特征</li>
+<li>面向对象的五大基本原则</li>
+</ol>
+<h4 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h4><blockquote>
+<p>把相关的数据和方法组织为一个整体来看待，从更高的层次来进行系统建模，更贴近事物的自然运行模式</p>
+<p>将问题分解为一个一个的步骤，对每个步骤进行相应的抽象，通过不同对象之间的调用，组合解决问题。</p>
+<p>就是说，在进行面向对象进行编程的时候，要把属性、行为等封装成对象，然后基于这些对象及对象的能力进行业务逻辑的实现。</p>
+<p>例如：要生产一个苹果，就需要对苹果建模，定义一系列属性，定义一系列的行为。抽象成一个Apple类。</p>
+</blockquote>
+<h4 id="什么是面向过程"><a href="#什么是面向过程" class="headerlink" title="什么是面向过程"></a>什么是面向过程</h4><blockquote>
+<p>自顶而下的编程模式。把问题分解成一个一个的步骤，将每个步骤封装为一个个函数，然后依次调用每个函数。上来先定义一个函数，然后使用各种诸如if-else、for-each等方式进行代码执行。</p>
+<p>比如实现冒泡排序</p>
+</blockquote>
+<h4 id="面向对象与面向过程区别"><a href="#面向对象与面向过程区别" class="headerlink" title="面向对象与面向过程区别"></a>面向对象与面向过程区别</h4><blockquote>
+<p>设计象棋</p>
+<p>面向对象： 构造白棋对象、黑棋对象、棋盘对象、规则对象。面向对象可以复用，不需要重复造轮子。创建一次，重复使用。</p>
+<p>面向过程：面向过程:开始—黑走—棋盘—判断—白走—棋盘—判断—循环。只需要关注每一步怎么实现即可.</p>
+</blockquote>
+<p>优缺点：</p>
+<blockquote>
+<p>面向对象:占用资源相对高,速度相对慢</p>
+<p>面向过程:占用资源相对低,速度相对快</p>
+</blockquote>
+<p>参考：<a href="https://github.com/hollischuang/toBeTopJavaer/blob/master/basics/java-basic/object-oriented-vs-procedure-oriented.md" target="_blank" rel="noopener">https://github.com/hollischuang/toBeTopJavaer/blob/master/basics/java-basic/object-oriented-vs-procedure-oriented.md</a></p>
+<h4 id="面向对象的三大基本特征"><a href="#面向对象的三大基本特征" class="headerlink" title="面向对象的三大基本特征"></a>面向对象的三大基本特征</h4><blockquote>
+<p>封装：将属性和行为设计到一个对象中，有些行为和属性暴露，有些私有不暴露</p>
+<p>继承：使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。实现继承是指直接使用基类的属性和方法而无需额外编码的能力，接口继承，指的是使用方面的名称，子类必须实现。</p>
+<p>实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现</p>
+<p>多态：最常见的多态就是将子类传入父类参数中，运行时调用父类方法时通过传入的子类决定具体的内部结构或行为</p>
+</blockquote>
+<h4 id="五大基本原则"><a href="#五大基本原则" class="headerlink" title="五大基本原则"></a>五大基本原则</h4><blockquote>
+<p>单一职责原则：一个类只干一件事</p>
+<p>开放封闭原则：抽象类对扩展开放，对修改封闭</p>
+<p>李氏替换原则：子类必须能够替换其基类</p>
+</blockquote>
+]]></content>
+      <tags>
+        <tag>面向对象，java基础</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>zookeeper-命令行工具zkCli使用</title>
     <url>/2019/12/30/zookeeper-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7zkCli%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h4 id="zkCli使用"><a href="#zkCli使用" class="headerlink" title="zkCli使用"></a>zkCli使用</h4><h5 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h5><blockquote>

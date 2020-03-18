@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="zookeeper," />
+  <meta name="keywords" content="面向对象，java基础," />
 
 
 
@@ -81,24 +81,17 @@
 
 
 
-<meta name="description" content="zkCli使用前提 必须确保服务器已安装zookeeper echo ruok|nc 127.0.0.1 2181     使用四字命令检测zookeeper是否运行  使用ZooKeeper客户端有C语言和Java两个版本。 在zookeeper安装目录的&#x2F;bin文件夹下。 使用如图所示命令表示，使用zkCli.sh连接到zookeeper服务端成功。  四字命令   ZooKeeper 四字命">
+<meta name="description" content="概述 什么是面向对象 什么是面向过程 面向对象与面向过程区别 面向对象的三大基本特征 面向对象的五大基本原则  什么是面向对象 把相关的数据和方法组织为一个整体来看待，从更高的层次来进行系统建模，更贴近事物的自然运行模式 将问题分解为一个一个的步骤，对每个步骤进行相应的抽象，通过不同对象之间的调用，组合解决问题。 就是说，在进行面向对象进行编程的时候，要把属性、行为等封装成对象，然后基于这些对象及">
 <meta property="og:type" content="article">
-<meta property="og:title" content="zookeeper-命令行工具zkCli使用">
-<meta property="og:url" content="http://yoursite.com/2019/12/30/zookeeper-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7zkCli%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="面向对象与面向过程">
+<meta property="og:url" content="http://yoursite.com/2020/01/03/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B/index.html">
 <meta property="og:site_name" content="tomwangzhi的编程点滴">
-<meta property="og:description" content="zkCli使用前提 必须确保服务器已安装zookeeper echo ruok|nc 127.0.0.1 2181     使用四字命令检测zookeeper是否运行  使用ZooKeeper客户端有C语言和Java两个版本。 在zookeeper安装目录的&#x2F;bin文件夹下。 使用如图所示命令表示，使用zkCli.sh连接到zookeeper服务端成功。  四字命令   ZooKeeper 四字命">
-<meta property="og:image" content="http://yoursite.com/images/zkcli.jpg">
-<meta property="og:image" content="http://yoursite.com/images/zkcli1.jpg">
-<meta property="og:image" content="http://yoursite.com/images/zkcli2.jpg">
-<meta property="og:image" content="http://yoursite.com/images/zkcli3.jpg">
-<meta property="og:image" content="http://yoursite.com/images/zkcli4.jpg">
-<meta property="og:image" content="http://yoursite.com/images/zkcli4.jpg">
-<meta property="article:published_time" content="2019-12-30T11:38:36.000Z">
-<meta property="article:modified_time" content="2019-12-31T02:28:22.181Z">
+<meta property="og:description" content="概述 什么是面向对象 什么是面向过程 面向对象与面向过程区别 面向对象的三大基本特征 面向对象的五大基本原则  什么是面向对象 把相关的数据和方法组织为一个整体来看待，从更高的层次来进行系统建模，更贴近事物的自然运行模式 将问题分解为一个一个的步骤，对每个步骤进行相应的抽象，通过不同对象之间的调用，组合解决问题。 就是说，在进行面向对象进行编程的时候，要把属性、行为等封装成对象，然后基于这些对象及">
+<meta property="article:published_time" content="2020-01-03T08:16:25.000Z">
+<meta property="article:modified_time" content="2020-01-03T11:02:18.434Z">
 <meta property="article:author" content="王智">
-<meta property="article:tag" content="zookeeper">
+<meta property="article:tag" content="面向对象，java基础">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/images/zkcli.jpg">
 
 
 
@@ -128,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2019/12/30/zookeeper-命令行工具zkCli使用/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/01/03/面向对象与面向过程/"/>
 
 
 
 
 
-  <title>zookeeper-命令行工具zkCli使用 | tomwangzhi的编程点滴</title>
+  <title>面向对象与面向过程 | tomwangzhi的编程点滴</title>
   
 
 
@@ -305,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/30/zookeeper-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7zkCli%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/03/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="王智">
@@ -322,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">zookeeper-命令行工具zkCli使用</h1>
+          <h1 class="post-title" itemprop="name headline">面向对象与面向过程</h1>
         
 
         <div class="post-meta">
@@ -334,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-30T19:38:36+08:00">
-                2019-12-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-03T16:16:25+08:00">
+                2020-01-03
               </time>
             
 
@@ -377,93 +370,44 @@
       
 
       
-        <h4 id="zkCli使用"><a href="#zkCli使用" class="headerlink" title="zkCli使用"></a>zkCli使用</h4><h5 id="前提"><a href="#前提" class="headerlink" title="前提"></a>前提</h5><blockquote>
-<p>必须确保服务器已安装zookeeper</p>
-<p>echo ruok|nc 127.0.0.1 2181     使用四字命令检测zookeeper是否运行</p>
+        <h4 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h4><ol>
+<li>什么是面向对象</li>
+<li>什么是面向过程</li>
+<li>面向对象与面向过程区别</li>
+<li>面向对象的三大基本特征</li>
+<li>面向对象的五大基本原则</li>
+</ol>
+<h4 id="什么是面向对象"><a href="#什么是面向对象" class="headerlink" title="什么是面向对象"></a>什么是面向对象</h4><blockquote>
+<p>把相关的数据和方法组织为一个整体来看待，从更高的层次来进行系统建模，更贴近事物的自然运行模式</p>
+<p>将问题分解为一个一个的步骤，对每个步骤进行相应的抽象，通过不同对象之间的调用，组合解决问题。</p>
+<p>就是说，在进行面向对象进行编程的时候，要把属性、行为等封装成对象，然后基于这些对象及对象的能力进行业务逻辑的实现。</p>
+<p>例如：要生产一个苹果，就需要对苹果建模，定义一系列属性，定义一系列的行为。抽象成一个Apple类。</p>
 </blockquote>
-<h5 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h5><p>ZooKeeper客户端有C语言和Java两个版本。</p>
-<p>在zookeeper安装目录的/bin文件夹下。</p>
-<p>使用如图所示命令表示，使用zkCli.sh连接到zookeeper服务端成功。</p>
-<p><img src="/images/zkcli.jpg" alt=""></p>
-<h5 id="四字命令"><a href="#四字命令" class="headerlink" title="四字命令"></a>四字命令</h5><table>
-<thead>
-<tr>
-<th><strong>ZooKeeper 四字命令</strong></th>
-<th><strong>功能描述</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>conf</td>
-<td>输出相关服务配置的详细信息。</td>
-</tr>
-<tr>
-<td>cons</td>
-<td>列出所有连接到服务器的客户端的完全的连接 / 会话的详细信息。包括“接受 / 发送”的包数量、会话 id 、操作延迟、最后的操作执行等等信息。</td>
-</tr>
-<tr>
-<td>dump</td>
-<td>列出未经处理的会话和临时节点。</td>
-</tr>
-<tr>
-<td>envi</td>
-<td>输出关于服务环境的详细信息（区别于 conf 命令）。</td>
-</tr>
-<tr>
-<td>reqs</td>
-<td>列出未经处理的请求</td>
-</tr>
-<tr>
-<td>ruok</td>
-<td>测试服务是否处于正确状态。如果确实如此，那么服务返回“imok ”，否则不做任何相应。</td>
-</tr>
-<tr>
-<td>stat</td>
-<td>输出关于性能和连接的客户端的列表。</td>
-</tr>
-<tr>
-<td>wchs</td>
-<td>列出服务器 watch 的详细信息。</td>
-</tr>
-<tr>
-<td>wchc</td>
-<td>通过 session 列出服务器 watch 的详细信息，它的输出是一个与watch 相关的会话的列表。</td>
-</tr>
-<tr>
-<td>wchp</td>
-<td>通过路径列出服务器 watch 的详细信息。它输出一个与 session相关的路径。</td>
-</tr>
-</tbody></table>
-<p>例如使用案例：</p>
-<p><img src="/images/zkcli1.jpg" alt=""></p>
-<h5 id="常见使用案例"><a href="#常见使用案例" class="headerlink" title="常见使用案例"></a>常见使用案例</h5><ol>
-<li><strong>使用 ls 命令来查看当前 ZooKeeper 中所包含的内容</strong></li>
-</ol>
-<p><img src="/images/zkcli2.jpg" alt=""></p>
-<ol start="2">
-<li><p>*<em>创建一个新的 znode ，使用 create /mynode  ‘aaa’ 绑定字符串 aaa *</em></p>
-<p><img src="/images/zkcli3.jpg" alt=""></p>
-</li>
-<li><p>*<em>获取节点下面绑定的信息 get /mynode *</em> </p>
-<p><img src="/images/zkcli4.jpg" alt=""></p>
-</li>
-<li><p><strong>通过 set 命令来对 zk 所关联的字符串进行设置： set /mynode ‘ddd’</strong></p>
-</li>
-<li><p><strong>创建的 znode 删除: delete /mynode</strong></p>
-</li>
-</ol>
-<h5 id="节点各个参数详解："><a href="#节点各个参数详解：" class="headerlink" title="节点各个参数详解："></a>节点各个参数详解：</h5><p>节点的路径皆为绝对路径</p>
-<p><img src="/images/zkcli4.jpg" alt=""></p>
+<h4 id="什么是面向过程"><a href="#什么是面向过程" class="headerlink" title="什么是面向过程"></a>什么是面向过程</h4><blockquote>
+<p>自顶而下的编程模式。把问题分解成一个一个的步骤，将每个步骤封装为一个个函数，然后依次调用每个函数。上来先定义一个函数，然后使用各种诸如if-else、for-each等方式进行代码执行。</p>
+<p>比如实现冒泡排序</p>
+</blockquote>
+<h4 id="面向对象与面向过程区别"><a href="#面向对象与面向过程区别" class="headerlink" title="面向对象与面向过程区别"></a>面向对象与面向过程区别</h4><blockquote>
+<p>设计象棋</p>
+<p>面向对象： 构造白棋对象、黑棋对象、棋盘对象、规则对象。面向对象可以复用，不需要重复造轮子。创建一次，重复使用。</p>
+<p>面向过程：面向过程:开始—黑走—棋盘—判断—白走—棋盘—判断—循环。只需要关注每一步怎么实现即可.</p>
+</blockquote>
+<p>优缺点：</p>
 <blockquote>
-<p>cZxid节点创建时的zxid</p>
-<p>ctime节点创建时间</p>
-<p>mZxid节点最近一次更新时的zxid</p>
-<p>mtime节点最近一次更新的时间</p>
-<p>cversion子节点数据更新次数</p>
-<p>dataVersion本节点数据更新次数</p>
-<p>aclVersion节点ACL(授权信息)的更新次数</p>
-<p>ephemeralOwner如果该节点为临时节点,ephemeralOwner值表示与该节点绑定的session id. 如果该节点不是临时节点,ephemeralOwner值为0</p>
-<p>dataLength节点数据长度，本例中为hello world的长度</p>
-<p>numChildren子节点个数</p>
+<p>面向对象:占用资源相对高,速度相对慢</p>
+<p>面向过程:占用资源相对低,速度相对快</p>
+</blockquote>
+<p>参考：<a href="https://github.com/hollischuang/toBeTopJavaer/blob/master/basics/java-basic/object-oriented-vs-procedure-oriented.md" target="_blank" rel="noopener">https://github.com/hollischuang/toBeTopJavaer/blob/master/basics/java-basic/object-oriented-vs-procedure-oriented.md</a></p>
+<h4 id="面向对象的三大基本特征"><a href="#面向对象的三大基本特征" class="headerlink" title="面向对象的三大基本特征"></a>面向对象的三大基本特征</h4><blockquote>
+<p>封装：将属性和行为设计到一个对象中，有些行为和属性暴露，有些私有不暴露</p>
+<p>继承：使用现有类的所有功能，并在无需重新编写原来的类的情况下对这些功能进行扩展。实现继承是指直接使用基类的属性和方法而无需额外编码的能力，接口继承，指的是使用方面的名称，子类必须实现。</p>
+<p>实现继承，可以通过“继承”（Inheritance）和“组合”（Composition）来实现</p>
+<p>多态：最常见的多态就是将子类传入父类参数中，运行时调用父类方法时通过传入的子类决定具体的内部结构或行为</p>
+</blockquote>
+<h4 id="五大基本原则"><a href="#五大基本原则" class="headerlink" title="五大基本原则"></a>五大基本原则</h4><blockquote>
+<p>单一职责原则：一个类只干一件事</p>
+<p>开放封闭原则：抽象类对扩展开放，对修改封闭</p>
+<p>李氏替换原则：子类必须能够替换其基类</p>
 </blockquote>
 
       
@@ -511,7 +455,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/zookeeper/" rel="tag"># zookeeper</a>
+            <a href="/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%EF%BC%8Cjava%E5%9F%BA%E7%A1%80/" rel="tag"># 面向对象，java基础</a>
           
         </div>
       
@@ -524,8 +468,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2019/12/30/zookeeper%E6%A6%82%E8%BF%B0/" rel="next" title="zookeeper概述">
-                <i class="fa fa-chevron-left"></i> zookeeper概述
+              <a href="/2019/12/30/zookeeper-%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B7%A5%E5%85%B7zkCli%E4%BD%BF%E7%94%A8/" rel="next" title="zookeeper-命令行工具zkCli使用">
+                <i class="fa fa-chevron-left"></i> zookeeper-命令行工具zkCli使用
               </a>
             
           </div>
@@ -534,8 +478,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2020/01/03/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E4%B8%8E%E9%9D%A2%E5%90%91%E8%BF%87%E7%A8%8B/" rel="prev" title="面向对象与面向过程">
-                面向对象与面向过程 <i class="fa fa-chevron-right"></i>
+              <a href="/2020/01/06/apache-camel/" rel="prev" title="apache camel">
+                apache camel <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -710,7 +654,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#zkCli使用"><span class="nav-number">1.</span> <span class="nav-text">zkCli使用</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#前提"><span class="nav-number">1.1.</span> <span class="nav-text">前提</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#使用"><span class="nav-number">1.2.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#四字命令"><span class="nav-number">1.3.</span> <span class="nav-text">四字命令</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#常见使用案例"><span class="nav-number">1.4.</span> <span class="nav-text">常见使用案例</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#节点各个参数详解："><span class="nav-number">1.5.</span> <span class="nav-text">节点各个参数详解：</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是面向对象"><span class="nav-number">2.</span> <span class="nav-text">什么是面向对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是面向过程"><span class="nav-number">3.</span> <span class="nav-text">什么是面向过程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面向对象与面向过程区别"><span class="nav-number">4.</span> <span class="nav-text">面向对象与面向过程区别</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#面向对象的三大基本特征"><span class="nav-number">5.</span> <span class="nav-text">面向对象的三大基本特征</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#五大基本原则"><span class="nav-number">6.</span> <span class="nav-text">五大基本原则</span></a></li></ol></div>
             
 
           </div>
